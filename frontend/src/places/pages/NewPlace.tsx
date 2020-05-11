@@ -1,6 +1,6 @@
 import React from "react";
 
-const NewPlace = (): JSX.Element => {
+const NewPlace: React.FC = () => {
   return <h2>NewPlace Works!</h2>;
 };
 

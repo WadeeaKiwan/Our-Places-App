@@ -1,15 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./UsersList.css";
 
 import UserItem from "./UserItem";
 
-import { User } from "../../types";
-
-interface UsersListProps {
+type Props = Readonly<{
   users: User[];
-}
+}>;
 
-const UsersList = ({ users }: UsersListProps): JSX.Element => {
+const UsersList: React.FC<Props> = ({ users }) => {
   if (users.length === 0) {
     return (
       <div className='center'>
@@ -26,11 +25,15 @@ const UsersList = ({ users }: UsersListProps): JSX.Element => {
           id={user.id}
           image={user.image}
           name={user.name}
-          placeCount={user.places}
+          placeCount={user.placeCount}
         />
       ))}
     </ul>
   );
+};
+
+UsersList.propTypes = {
+  users: PropTypes.array.isRequired
 };
 
 export default UsersList;
