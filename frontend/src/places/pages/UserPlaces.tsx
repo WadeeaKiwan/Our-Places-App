@@ -1,4 +1,6 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+
 import PlaceList from "../components/PlaceList";
 
 const DUMMY_PLACES: Place[] = [
@@ -44,9 +46,12 @@ const DUMMY_PLACES: Place[] = [
 ];
 
 const UserPlaces: React.FC = () => {
+  const userId = useParams<{ userId: string }>().userId;
+  const loadedPlaces = DUMMY_PLACES.filter((place) => place.creatorId === userId);
+
   return (
     <React.Fragment>
-      <PlaceList places={DUMMY_PLACES} />
+      <PlaceList places={loadedPlaces} />
     </React.Fragment>
   );
 };
