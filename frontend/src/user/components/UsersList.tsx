@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./UsersList.css";
 
 import UserItem from "./UserItem";
@@ -23,20 +22,10 @@ const UsersList: React.FC<Props> = ({ users }) => {
   return (
     <ul className='users-list'>
       {users.map((user) => (
-        <UserItem
-          key={user.id}
-          id={user.id}
-          image={user.image}
-          name={user.name}
-          placeCount={user.placeCount}
-        />
+        <UserItem key={user.id} user={user} />
       ))}
     </ul>
   );
-};
-
-UsersList.propTypes = {
-  users: PropTypes.array.isRequired
 };
 
 export default UsersList;
