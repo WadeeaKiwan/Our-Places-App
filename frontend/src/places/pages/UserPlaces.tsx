@@ -45,8 +45,12 @@ const DUMMY_PLACES: Place[] = [
   }
 ];
 
+type ParamTypes = Readonly<{
+  userId: string;
+}>;
+
 const UserPlaces: React.FC = () => {
-  const userId = useParams<{ userId: string }>().userId;
+  const { userId } = useParams<ParamTypes>();
   const loadedPlaces = DUMMY_PLACES.filter((place) => place.creatorId === userId);
 
   return (
