@@ -2,6 +2,7 @@ import React from "react";
 import "./PlaceList.css";
 
 import Card from "../../shared/components/UIElements/Card";
+import Button from "../../shared/components/FormElements/Button";
 import PlaceItem from "./PlaceItem";
 
 type Props = Readonly<{
@@ -14,7 +15,7 @@ const PlaceList: React.FC<Props> = ({ places }) => {
       <div className='place-list center'>
         <Card>
           <h2>No places found. Maybe create one?</h2>
-          <button>Share Place</button>
+          <Button to='/places/new'>Share Place</Button>
         </Card>
       </div>
     );
