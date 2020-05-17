@@ -6,7 +6,6 @@ import Button from "../../shared/components/FormElements/Button";
 import Modal from "../../shared/components/UIElements/Modal";
 import Map from "../../shared/components/UIElements/Map";
 import { AuthContext } from "../../shared/context/auth-context";
-import Auth from "../../user/pages/Auth";
 
 type Props = Readonly<{
   place: Place;
