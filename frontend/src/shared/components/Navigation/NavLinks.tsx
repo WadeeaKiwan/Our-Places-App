@@ -29,6 +29,11 @@ const NavLinks: React.FC = (props) => {
           <NavLink to='/auth'>AUTHENTICATE</NavLink>
         </li>
       )}
+      {auth.isLoggedIn && (
+        <li>
+          <button onClick={auth.logout}>LOGOUT</button>
+        </li>
+      )}
     </ul>
   );
 };
