@@ -1,0 +1,21 @@
+{
+  "name": "our-places-app",
+  "version": "1.0.0",
+  "description": "Fullstack application",
+  "main": "backend/app.ts",
+  "scripts": {
+    "client": "npm start --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "build-ts": "cd frontend && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WadeeaKiwan/Our-Places-App.git"
+  },
+  "author": "Wadeea Kiwan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WadeeaKiwan/Our-Places-App/issues"
+  },
+  "homepage": "https://github.com/WadeeaKiwan/Our-Places-App#readme"
+}
