@@ -48,7 +48,7 @@ const getPlaceById = (req, res, next) => {
   const place = DUMMY_PLACES.find((p) => p.id === placeId);
 
   if (!place) {
-    throw new HttpError("Could not a place for the provided id.", 404);
+    throw new HttpError("Could not find a place for the provided id.", 404);
   }
 
   res.json({ place }); // => { place } => { place: place }
@@ -59,7 +59,7 @@ const getPlaceByUserId = (req, res, next) => {
   const place = DUMMY_PLACES.find((p) => p.creatorId === userId);
 
   if (!place) {
-    return next(new HttpError("Could not a place for the provided id.", 404));
+    return next(new HttpError("Could not find a place for the provided id.", 404));
   }
 
   res.json({ place });
