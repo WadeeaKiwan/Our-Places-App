@@ -5,6 +5,8 @@
   "main": "backend/app.ts",
   "scripts": {
     "client": "npm start --prefix frontend",
+    "server": "npm start --prefix backend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "npm run build --prefix frontend",
     "build-ts": "cd frontend && tsc"
   },
@@ -17,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/WadeeaKiwan/Our-Places-App/issues"
   },
-  "homepage": "https://github.com/WadeeaKiwan/Our-Places-App#readme"
+  "homepage": "https://github.com/WadeeaKiwan/Our-Places-App#readme",
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
 }
