@@ -19,14 +19,20 @@ const DUMMY_USERS = [
   }
 ];
 
-const getUsers = (req, res, next) => {
-  const users = DUMMY_USERS;
-
-  if (!users || users.length === 0) {
-    throw new HttpError("Could not find users", 404);
+const getUsers = async (req, res, next) => {
+  let users;
+  try {
+    users = await User.find({}, "-password"); // await User.find({}, 'email name');
+  } catch (err) {
+    const error = new HttpError("Fetching users failed, please try again later", 500);
+    return next(error);
   }
 
-  res.json({ users });
+  if (!users || users.length === 0) {
+    return next(new HttpError("Could not find users", 404));
+  }
+
+  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
 };
 
 const signup = async (req, res, next) => {
