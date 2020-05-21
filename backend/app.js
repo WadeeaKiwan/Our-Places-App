@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const HttpError = require("./models/http-error");
 
@@ -26,4 +27,17 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred" });
 });
 
-app.listen(5000);
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Connected to the database!");
+    app.listen(5000, () => {
+      console.log("Connected to the Server!");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
