@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
 const getCoordsForAddress = require("../util/location");
+const Place = require("../models/Place");
 
 let DUMMY_PLACES = [
   {
@@ -85,18 +86,24 @@ const createPlace = async (req, res, next) => {
     return next(error);
   }
 
-  const createdPlace = {
-    id: uuid(),
+  const createdPlace = new Place({
     title,
     description,
     address,
-    creatorId,
-    location
-  };
+    location,
+    imageUrl:
+      "https://firebasestorage.googleapis.com/v0/b/socialape-ad195.appspot.com/o/matthias-schroder-KoBCaTPydqs-unsplash.jpg?alt=media",
+    creatorId
+  });
 
-  DUMMY_PLACES.push(createdPlace);
+  try {
+    await createdPlace.save();
+  } catch (err) {
+    const error = new HttpError("Creating place failed, please try again", 500);
+    return next(error);
+  }
 
-  res.status(201).json({ place: createdPlace }); // unshift(createdPlace)
+  res.status(201).json({ place: createdPlace });
 };
 
 const updatePlace = (req, res, next) => {
