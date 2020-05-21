@@ -42,7 +42,7 @@ const signup = async (req, res, next) => {
     return next(new HttpError("Invalid inputs passed, please check your data.", 422));
   }
 
-  const { name, email, password, places } = req.body;
+  const { name, email, password } = req.body;
 
   let existingUser;
   try {
@@ -63,7 +63,7 @@ const signup = async (req, res, next) => {
     password,
     image:
       "https://firebasestorage.googleapis.com/v0/b/socialape-ad195.appspot.com/o/995518179.jpg?alt=media",
-    places
+    places: []
   });
 
   try {
