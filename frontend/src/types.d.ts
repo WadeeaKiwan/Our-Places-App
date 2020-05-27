@@ -2,7 +2,7 @@ interface User {
   id: string;
   image: string;
   name: string;
-  placeCount: number;
+  places: Place[];
 }
 
 interface Place {
