@@ -24,15 +24,23 @@ export const useHttpClient = () => {
       });
 
       const responseData = await response.json();
+
+      // Remove the completed abortCtrl from the array of abortControllers if a request completes (we have a response)
+      activeHttpRequests.current = activeHttpRequests.current.filter(
+        (reqCtrl) => reqCtrl !== httpAbortCtrl
+      );
+
       if (!response.ok) {
         throw new Error(responseData.message);
       }
 
+      setIsLoading(false);
       return responseData;
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
+      throw err;
     }
-    setIsLoading(false);
   }, []);
 
   const clearError = () => {
