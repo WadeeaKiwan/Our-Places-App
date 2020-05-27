@@ -7,9 +7,10 @@ import PlaceItem from "./PlaceItem";
 
 type Props = Readonly<{
   places: Place[];
+  onDeletePlace: (deletedPlaceId: string) => void;
 }>;
 
-const PlaceList: React.FC<Props> = ({ places }) => {
+const PlaceList: React.FC<Props> = ({ places, onDeletePlace }) => {
   if (places.length === 0) {
     return (
       <div className='place-list center'>
@@ -24,7 +25,7 @@ const PlaceList: React.FC<Props> = ({ places }) => {
   return (
     <ul className='place-list'>
       {places.map((place) => (
-        <PlaceItem key={place.id} place={place} />
+        <PlaceItem key={place.id} place={place} onDelete={onDeletePlace} />
       ))}
     </ul>
   );

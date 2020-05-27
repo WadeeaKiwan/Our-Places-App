@@ -38,7 +38,6 @@ const UpdatePlace = () => {
     false
   );
 
-  // const identifiedPlace = DUMMY_PLACES.find((place) => place.id === placeId);
   useEffect(() => {
     const fetchPlace = async () => {
       try {
