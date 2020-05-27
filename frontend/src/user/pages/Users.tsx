@@ -4,23 +4,6 @@ import UsersList from "../components/UsersList";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 
-// const DUMMY_USERS: User[] = [
-//   {
-//     id: "u1",
-//     name: "Wadeea Kiwan",
-//     image:
-//       "https://firebasestorage.googleapis.com/v0/b/socialape-ad195.appspot.com/o/995518179.jpg?alt=media",
-//     placeCount: 2
-//   },
-//   {
-//     id: "u2",
-//     name: "Max Bla",
-//     image:
-//       "https://firebasestorage.googleapis.com/v0/b/socialape-ad195.appspot.com/o/480532018.jpg?alt=media",
-//     placeCount: 1
-//   }
-// ];
-
 const Users: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
