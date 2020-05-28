@@ -46,8 +46,7 @@ const signup = async (req, res, next) => {
     name,
     email,
     password,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/socialape-ad195.appspot.com/o/995518179.jpg?alt=media",
+    image: req.file.path,
     places: []
   });
 
