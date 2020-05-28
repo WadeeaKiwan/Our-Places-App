@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 
@@ -69,8 +71,7 @@ const createPlace = async (req, res, next) => {
     description,
     address,
     location,
-    imageUrl:
-      "https://firebasestorage.googleapis.com/v0/b/socialape-ad195.appspot.com/o/matthias-schroder-KoBCaTPydqs-unsplash.jpg?alt=media",
+    imageUrl: req.file.path,
     creatorId
   });
 
@@ -151,6 +152,8 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
+  const imagePath = place.imageUrl;
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -162,6 +165,10 @@ const deletePlace = async (req, res, next) => {
     const error = new HttpError("Something went wrong, could not delete place.", 500);
     return next(error);
   }
+
+  fs.unlink(imagePath, (err) => {
+    console.log(err);
+  });
 
   res.status(200).json({ message: "Place deleted successfully." });
 };

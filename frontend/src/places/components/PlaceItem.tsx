@@ -84,7 +84,7 @@ const PlaceItem: React.FC<Props> = ({
         <Card className='place-item__content'>
           {isLoading && <LoadingSpinner asOverlay />}
           <div className='place-item__image'>
-            <img src={imageUrl} alt={title} />
+            <img src={`http://localhost:5000/${imageUrl}`} alt={title} />
           </div>
           <div className='place-item__info'>
             <h2>{title}</h2>
