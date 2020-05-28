@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 
 import Users from "./user/pages/Users";
@@ -10,7 +10,7 @@ import Auth from "./user/pages/Auth";
 import { AuthContext } from "./shared/context/auth-context";
 
 const App: React.FC = () => {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState<string | null>(null);
   const [userId, setUserId] = useState(null);
 
   const login = useCallback((uid, token) => {
@@ -22,7 +22,15 @@ const App: React.FC = () => {
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);
+    localStorage.removeItem("userData");
   }, []);
+
+  useEffect(() => {
+    const storedData = JSON.parse((localStorage as any).getItem("userData"));
+    if (storedData && storedData.token) {
+      login(storedData.userId, storedData.token);
+    }
+  }, [login]);
 
   let routes;
 
