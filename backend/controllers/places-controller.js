@@ -146,7 +146,7 @@ const deletePlace = async (req, res, next) => {
 
   let place;
   try {
-    place = await Place.findById(placeId).populate("creatorId");
+    place = await Place.findById(placeId).populate("creatorId"); // creatorId is the full user object
   } catch (err) {
     const error = new HttpError("Something went wrong, could not delete place.", 500);
     return next(error);
@@ -154,6 +154,11 @@ const deletePlace = async (req, res, next) => {
 
   if (!place) {
     const error = new HttpError("Could not find place for this id.", 404);
+    return next(error);
+  }
+
+  if (place.creatorId.id !== req.userData.userId) {
+    const error = new HttpError("You are not allowed to edit this place.", 401);
     return next(error);
   }
 
