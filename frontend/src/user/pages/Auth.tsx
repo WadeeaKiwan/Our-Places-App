@@ -128,7 +128,7 @@ const Auth: React.FC = () => {
               id='image'
               center
               onInput={inputHandler}
-              errorText='Please enter a valid image.'
+              errorText='Please provide an image.'
             />
           )}
           <Input

@@ -8,6 +8,7 @@ import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../shared/util/validators";
 import { AuthContext } from "../../shared/context/auth-context";
 
@@ -27,6 +28,10 @@ const NewPlace: React.FC = () => {
       address: {
         value: "",
         isValid: false
+      },
+      image: {
+        value: null,
+        isValid: false
       }
     },
     false
@@ -36,21 +41,16 @@ const NewPlace: React.FC = () => {
 
   const placeSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formState.inputs); // send this to the backend!
+
     try {
-      await sendRequest(
-        "http://localhost:5000/api/places",
-        "POST",
-        JSON.stringify({
-          title: formState.inputs.title.value,
-          description: formState.inputs.description.value,
-          address: formState.inputs.address.value,
-          creatorId: auth.userId
-        }),
-        {
-          "Content-Type": "application/json"
-        }
-      );
+      const formData = new FormData();
+      formData.append("title", formState.inputs.title.value);
+      formData.append("description", formState.inputs.description.value);
+      formData.append("address", formState.inputs.address.value);
+      formData.append("creatorId", auth.userId as string);
+      formData.append("image", formState.inputs.image.value);
+
+      await sendRequest("http://localhost:5000/api/places", "POST", formData);
       history.push("/");
     } catch (err) {}
   };
@@ -73,8 +73,8 @@ const NewPlace: React.FC = () => {
           id='description'
           element='textarea'
           label='Description'
-          validators={[VALIDATOR_MINLENGTH(5)]}
-          errorText='Please enter a valid description (at least 5 characters).'
+          validators={[VALIDATOR_MINLENGTH(6)]}
+          errorText='Please enter a valid description (at least 6 characters).'
           onInput={inputHandler}
         />
         <Input
@@ -84,6 +84,12 @@ const NewPlace: React.FC = () => {
           validators={[VALIDATOR_REQUIRE()]}
           errorText='Please enter a valid address.'
           onInput={inputHandler}
+        />
+        <ImageUpload
+          id='image'
+          onInput={inputHandler}
+          center
+          errorText='Please provide an image.'
         />
         <Button type='submit' disabled={!formState.isValid}>
           ADD PLACE

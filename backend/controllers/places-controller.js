@@ -69,8 +69,7 @@ const createPlace = async (req, res, next) => {
     description,
     address,
     location,
-    imageUrl:
-      "https://firebasestorage.googleapis.com/v0/b/socialape-ad195.appspot.com/o/matthias-schroder-KoBCaTPydqs-unsplash.jpg?alt=media",
+    imageUrl: req.file.path,
     creatorId
   });
 
