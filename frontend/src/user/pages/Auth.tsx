@@ -40,7 +40,8 @@ const Auth: React.FC = () => {
       setFormData(
         {
           ...formState.inputs,
-          name: undefined
+          name: undefined,
+          image: undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -50,6 +51,10 @@ const Auth: React.FC = () => {
           ...formState.inputs,
           name: {
             value: "",
+            isValid: false
+          },
+          image: {
+            value: null,
             isValid: false
           }
         },
@@ -61,6 +66,8 @@ const Auth: React.FC = () => {
 
   const authSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    console.log(formState.inputs);
 
     if (isLoginMode) {
       try {
@@ -117,7 +124,14 @@ const Auth: React.FC = () => {
               onInput={inputHandler}
             />
           )}
-          {!isLoginMode && <ImageUpload id='image' center />}
+          {!isLoginMode && (
+            <ImageUpload
+              id='image'
+              center
+              onInput={inputHandler}
+              errorText='Please enter a valid image.'
+            />
+          )}
           <Input
             id='email'
             element='input'
@@ -132,8 +146,8 @@ const Auth: React.FC = () => {
             element='input'
             type='password'
             label='Password'
-            validators={[VALIDATOR_MINLENGTH(5)]}
-            errorText='Please enter a valid password, at least 5 characters.'
+            validators={[VALIDATOR_MINLENGTH(6)]}
+            errorText='Please enter a valid password, at least 6 characters.'
             onInput={inputHandler}
           />
           <Button type='submit' disabled={!formState.isValid}>
