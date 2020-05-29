@@ -58,7 +58,7 @@ mongoose
   )
   .then(() => {
     console.log("Connected to the database!");
-    app.listen(5000, () => {
+    app.listen(process.env.PORT || 5000, () => {
       console.log("Connected to the Server!");
     });
   })
