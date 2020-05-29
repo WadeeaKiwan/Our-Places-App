@@ -37,7 +37,7 @@ const UserPlaces: React.FC = () => {
       <ErrorModal error={error} onClear={clearError} />
       {isLoading && (
         <div className='center'>
-          <LoadingSpinner asOverlay />}
+          <LoadingSpinner asOverlay />
         </div>
       )}
       {!isLoading && loadedPlaces && (
