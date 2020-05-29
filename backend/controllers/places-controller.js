@@ -88,6 +88,11 @@ const createPlace = async (req, res, next) => {
     return next(error);
   }
 
+  if (user.id !== req.userData.userId) {
+    const error = new HttpError("You are not allowed to create a place here.", 401);
+    return next(error);
+  }
+
   try {
     const sess = await mongoose.startSession(); // If the collection is not created on atlas, we have to create it manually
     sess.startTransaction();
