@@ -48,11 +48,14 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-  })
+  .connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-whruj.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    }
+  )
   .then(() => {
     console.log("Connected to the database!");
     app.listen(5000, () => {
