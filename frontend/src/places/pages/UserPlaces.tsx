@@ -18,7 +18,9 @@ const UserPlaces: React.FC = () => {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const responseData = await sendRequest(`http://localhost:5000/api/places/user/${userId}`);
+        const responseData = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/places/user/${userId}`
+        );
 
         setLoadedPlaces(responseData.places);
       } catch (err) {}
@@ -35,7 +37,7 @@ const UserPlaces: React.FC = () => {
       <ErrorModal error={error} onClear={clearError} />
       {isLoading && (
         <div className='center'>
-          <LoadingSpinner asOverlay />}
+          <LoadingSpinner asOverlay />
         </div>
       )}
       {!isLoading && loadedPlaces && (
