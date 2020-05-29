@@ -57,7 +57,7 @@ const createPlace = async (req, res, next) => {
     return next(new HttpError("Invalid inputs passed, please check your data.", 422)); // throw will not work with asynchronous code
   }
 
-  const { title, description, address, creatorId } = req.body;
+  const { title, description, address } = req.body;
 
   let location;
   try {
@@ -72,12 +72,12 @@ const createPlace = async (req, res, next) => {
     address,
     location,
     imageUrl: req.file.path,
-    creatorId
+    creatorId: req.userData.userId
   });
 
   let user;
   try {
-    user = await User.findById(creatorId);
+    user = await User.findById(req.userData.userId);
   } catch (err) {
     const error = new HttpError("Creating place failed, please try again", 500);
     return next(error);
@@ -87,8 +87,6 @@ const createPlace = async (req, res, next) => {
     const error = new HttpError("Could not find user for provided id.", 404);
     return next(error);
   }
-
-  console.log(user);
 
   try {
     const sess = await mongoose.startSession(); // If the collection is not created on atlas, we have to create it manually
@@ -123,6 +121,11 @@ const updatePlace = async (req, res, next) => {
     return next(error);
   }
 
+  if (updatedPlace.creatorId.toString() !== req.userData.userId) {
+    const error = new HttpError("You are not allowed to edit this place.", 401);
+    return next(error);
+  }
+
   updatedPlace.title = title;
   updatedPlace.description = description;
 
@@ -141,7 +144,7 @@ const deletePlace = async (req, res, next) => {
 
   let place;
   try {
-    place = await Place.findById(placeId).populate("creatorId");
+    place = await Place.findById(placeId).populate("creatorId"); // creatorId is the full user object
   } catch (err) {
     const error = new HttpError("Something went wrong, could not delete place.", 500);
     return next(error);
@@ -149,6 +152,11 @@ const deletePlace = async (req, res, next) => {
 
   if (!place) {
     const error = new HttpError("Could not find place for this id.", 404);
+    return next(error);
+  }
+
+  if (place.creatorId.id !== req.userData.userId) {
+    const error = new HttpError("You are not allowed to edit this place.", 401);
     return next(error);
   }
 

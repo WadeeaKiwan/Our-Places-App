@@ -3,10 +3,14 @@ const { check } = require("express-validator");
 
 const { getUsers, signup, login } = require("../controllers/users-controller");
 const fileUpload = require("../middleware/file-upload");
+const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
 router.get("/", getUsers);
+
+// router.use(checkAuth);
+
 router.post(
   "/signup",
   fileUpload.single("image"),
