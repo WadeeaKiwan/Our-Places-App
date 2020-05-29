@@ -12,6 +12,6 @@ export const AuthContext = createContext<Props>({
   isLoggedIn: false,
   userId: null,
   token: null,
-  login: (uid, token, expirationDate) => {},
+  login: () => {},
   logout: () => {}
 });

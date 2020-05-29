@@ -2,13 +2,14 @@
   "name": "our-places-app",
   "version": "1.0.0",
   "description": "Fullstack application",
-  "main": "backend/app.ts",
+  "main": "backend/app.js",
   "scripts": {
     "client": "npm start --prefix frontend",
     "server": "npm start --prefix backend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "npm run build --prefix frontend",
-    "build-ts": "cd frontend && tsc"
+    "build-ts": "cd frontend && tsc",
+    "dependencies": "npm i && npm i --prefix frontend && npm i --prefix backend"
   },
   "repository": {
     "type": "git",
