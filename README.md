@@ -71,3 +71,7 @@ npm run dev
 ```
 npm run build
 ```
+
+### Note:
+
+Be sure you have these two folders `/uploads/images` inside your `backend` root and at least one picture uploaded to be able to use image upload.
