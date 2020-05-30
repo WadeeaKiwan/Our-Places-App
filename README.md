@@ -65,3 +65,9 @@ REACT_APP_ASSET_URL=<your backend server url>
 ```
 npm run dev
 ```
+
+## Run the following command in the root folder or in the `frontend` one to make a production build for the frontend of the application:
+
+```
+npm run build
+```
